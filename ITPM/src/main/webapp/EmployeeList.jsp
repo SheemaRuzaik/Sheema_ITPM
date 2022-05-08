@@ -335,8 +335,11 @@
                 
                 <!-- Page Heading -->
                 <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                <form action="./EmployeeDetails" method="post">
                     <h1 style="color: black;" class="">Employee List</h1>
-                    <a href="AddEmployee.jsp"><button class="btn btn-success" style="margin-left: 500px; height: 50px; width: 180px;">Add Employee</button></a>
+                   <button type="submit" class="btn btn-success" style="margin-left: 500px; height: 50px; width: 180px;">Generate Report</button>
+                    
+                </form>    
                 </div>
                 
                 

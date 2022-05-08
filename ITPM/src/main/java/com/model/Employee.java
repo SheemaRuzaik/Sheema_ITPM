@@ -1,5 +1,7 @@
 package com.model;
 
+import java.util.ArrayList;
+
 public class Employee {
 
 	private String empid;
@@ -14,7 +16,15 @@ public class Employee {
 	private String gender;
 	private String department;
 	private String status;
+	private ArrayList<Employee> summary;
 	
+	
+	public ArrayList<Employee> getSummary() {
+		return summary;
+	}
+	public void setSummary(ArrayList<Employee> summary) {
+		this.summary = summary;
+	}
 	public String getEmpid() {
 		return empid;
 	}

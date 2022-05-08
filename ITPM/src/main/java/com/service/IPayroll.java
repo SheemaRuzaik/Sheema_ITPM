@@ -25,6 +25,8 @@ public interface IPayroll {
 	
 	public int totalEmployee();
 	
+	public ArrayList<Employee> AllEmployee();
+	
 	
 //	// Leave
 //	
