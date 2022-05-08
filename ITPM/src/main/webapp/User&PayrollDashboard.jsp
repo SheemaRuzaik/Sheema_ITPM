@@ -336,7 +336,7 @@
                     
                     <h2 style="text-align: center;">Welcome User & Payroll Manager</h2>
                     
-                    <h2 style="text-align: center; color: black;">Mr. <%=emp.getFullname() %></h2>
+                    <h2 style="text-align: center; color: black;">Ms. <%=emp.getFullname() %></h2>
                     
                     
                     <br><br>
@@ -424,11 +424,11 @@
                                             <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
                                                 Leave Requests</div>
                                                 
-                                                <%
+                                             <%--    <%
                                             		IPayroll pay = new PayrollImpl();
                                             		int total = pay.totalLeave();
-                                            	%>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800"><%=total %></div>
+                                            	%> --%>
+                                        <%--     <div class="h5 mb-0 font-weight-bold text-gray-800"><%=total %></div> --%>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fas fa-comments fa-2x text-gray-300"></i>
