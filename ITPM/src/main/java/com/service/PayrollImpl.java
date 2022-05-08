@@ -257,6 +257,42 @@ public class PayrollImpl implements IPayroll{
 	}
 
 	
+	
+	// ------------Generate Report for All Employee Details------------
+	@Override
+	public ArrayList<Employee> AllEmployee() {
+		// TODO Auto-generated method stub
+
+		ArrayList<Employee> emp1 = new ArrayList<>();
+		
+		try {
+			connection=DBConnection.initializedb();
+			pt=connection.prepareStatement("select Emp_Id,FullName,Email,Contact,Department,Designation from Employee");
+			//pt.setString(1, month);
+			ResultSet result=pt.executeQuery();
+			
+			while(result.next()){
+				
+				Employee employee = new Employee();
+				
+				employee.setEmpid(result.getString(1));
+				employee.setFullname(result.getString(2));
+				employee.setEmail(result.getString(3));
+				employee.setContact(result.getString(4));
+				employee.setDepartment(result.getString(5));
+				employee.setDesignation(result.getString(6));
+				
+				emp1.add(employee);
+			}
+		}catch (Exception e) {
+			// TODO Auto-generated catch block
+					
+						e.printStackTrace();
+		}
+		return emp1;
+	}
+//
+	
 //	// Leave
 //
 //	// ------------Add new Leave Request------------
