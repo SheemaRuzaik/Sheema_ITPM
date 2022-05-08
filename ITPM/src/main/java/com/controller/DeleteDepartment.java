@@ -14,7 +14,7 @@ import com.service.IPayroll;
 import com.service.PayrollImpl;
 
 /**
- * Servlet implementation class DeleteEmployee
+ * Servlet implementation class Delete Department
  */
 @WebServlet("/DeleteDepartment")
 public class DeleteDepartment extends HttpServlet {
