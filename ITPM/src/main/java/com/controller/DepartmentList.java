@@ -9,20 +9,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.model.Employee;
-//import com.service.EmployeeImpl;
+import com.model.Department;
+import com.service.IPayroll;
+import com.service.PayrollImpl;
 
 /**
- * Servlet implementation class RetrieveEmplid
+ * Servlet implementation class DepartmentList
  */
-@WebServlet("/RetrieveEmplid")
-public class RetrieveEmplid extends HttpServlet {
+@WebServlet("/DepartmentList")
+public class DepartmentList extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public RetrieveEmplid() {
+    public DepartmentList() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -39,15 +40,17 @@ public class RetrieveEmplid extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		//doGet(request, response);
 		
-		Employee employee=new Employee();
-		//EmployeeImpl employeeimpl=new EmployeeImpl();
+		IPayroll idepartment = new PayrollImpl();
+		Department department = new Department();
 		
-		employee.setEmpid(request.getParameter("emp_ID"));
+		department = idepartment.getDepartment(request.getParameter("dptid"));
 		
-		//employeeimpl.retrieveempid(employee);
+		request.setAttribute("department", department);
 		
-		RequestDispatcher dispatcher=getServletContext().getRequestDispatcher("/EmployeeDashboard.jsp");
+		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/DepartmentList.jsp");
 		dispatcher.forward(request, response);
 	}
 

@@ -1,6 +1,8 @@
-<%@ page import="com.service.PayrollImpl"%>
+<%@page import="com.service.IPayroll"%>
+<%@page import="java.util.ArrayList"%>
 <%@ page import="com.service.IPayroll"%>
-<%@ page import="com.model.Employee"%>
+<%@ page import="com.service.PayrollImpl"%>
+<%@page import="com.model.Department"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
@@ -14,7 +16,8 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Add Employees</title>
+    <title>List of Department</title>
+    <link rel="stylesheet" href="css/buttons.css">
 
     <!-- Custom fonts for this template-->
     <link href="css/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -28,12 +31,30 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 	
-    <!-- Form Style -->
-    <link rel="stylesheet" href="css/form.css">
     
     <!-- Custom styles for this template-->
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
-
+    
+    
+    <!-- Table Style -->
+    <style type="text/css">
+    	table{
+    		border-collapse: collapse;
+    		width: 100%;
+    		
+    	}
+    	
+    	table, th, td {
+			border: 1px solid black;
+			text-align: center;
+		}
+		
+		th{
+			height: 50px;
+		}
+		
+		
+    </style>
 </head>
 
 <body id="page-top">
@@ -71,27 +92,29 @@
             </div>
 
             <!-- Nav Item - Pages Collapse Menu -->
+            
+            
+            <!-- Nav Employee Details -->
+            <li class="nav-item">
+                <a class="nav-link" href="Department.jsp">
+                    <i class="fas fa-fw fa-home"></i>
+                    <span>Employees</span></a>
+            </li>
+            
             <li class="nav-item  active">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
                     aria-expanded="true" aria-controls="collapseTwo">
                     <i class="fas fa-fw fa-users"></i>
-                    <span>Employee</span>
+                    <span>Department</span>
                 </a>
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Custom Employees:</h6>
-                        <a class="collapse-item  active" href="AddEmployee.jsp">Add New Employee</a>
-                        <a class="collapse-item" href="ViewEmployee.jsp">View Employee</a>
-                        <a class="collapse-item" href="EmployeeList.jsp">Employee List</a>
+                        <h6 class="collapse-header">Custom Department:</h6>
+                        <a class="collapse-item" href="AddDepartment.jsp">Add New Department</a>
+                        <a class="collapse-item" href="ViewDepartment.jsp">View Department</a>
+                        <a class="collapse-item active" href="DepartmentList.jsp">Department List</a>
                     </div>
                 </div>
-            </li>
-            
-            <!-- Nav Department Details -->
-            <li class="nav-item">
-                <a class="nav-link" href="Departments.jsp">
-                    <i class="fas fa-fw fa-home"></i>
-                    <span>Departments</span></a>
             </li>
             
             <!-- Nav Item - Pages Collapse Menu -->
@@ -134,8 +157,8 @@
                     </div>
                 </div>
             </li>
-
-			<!-- Nav Item - Three Collapse Menu -->
+            
+            <!-- Nav Item - Three Collapse Menu -->
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsethree"
                     aria-expanded="true" aria-controls="collapsethree">
@@ -151,7 +174,8 @@
                     </div>
                 </div>
             </li>
-			
+            
+
             <!-- Divider -->
             <hr class="sidebar-divider">
             
@@ -267,20 +291,15 @@
                         </li>
 
                         <div class="topbar-divider d-none d-sm-block"></div>
-						
-						<% 	Employee emp = new Employee();
-                       
-                       		IPayroll ipayroll = new PayrollImpl();
-                       
-                       		emp = ipayroll.manager("User & Payroll Management");
-                      	%>
+						<%
+						Department dpt = new Department();
+						                       
+						                       		IPayroll ipayroll1 = new PayrollImpl();
+						                       
+						                       		dpt = ipayroll1.manager("User & Payroll Management");
+						%>
                         <!-- Nav Item - User Information -->
-                        <li class="nav-item dropdown no-arrow">
-                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small"><%=emp.getFullname() %></span>
-                                <img class="img-profile rounded-circle"
-                                    src="images/undraw_profile.svg">
+                    
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -311,167 +330,69 @@
                 <!-- End of Topbar -->
 
                 <!-- Begin Page Content -->
-                <div class="container-fluid">
+                <div class="container-fluid">	            
                 
                 <!-- Page Heading -->
                 <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                    <h1 class="h3 mb-0 text-gray-800">Add New Employee</h1>
-                    <a href="EmployeeList.jsp"><button class="btn btn-success" style="margin-left: 500px; height: 50px; width: 180px;">Employee List</button></a>
+                    <h1 style="color: black;" class="">Department List</h1>
+                    <a href="AddDepartment.jsp"><button class="btn btn-success" style="margin-left: 500px; height: 50px; width: 180px;">Add Department</button></a>
                 </div>
                 
-                    <form action="./EmployeeRegister" method="post" onsubmit="return enableButton()" class="">
-						    		      
-						      <br>
-						      <div class="row">
-						      <div class="col-half">
-						      <h4>Employee ID</h4>
-						      <div class="input-group input-group-icon">
-						        <input type="text" name="empid" id="empid" placeholder="Employee ID" pattern="[E]+[0-9]{4}" title="EXXXX" required/>
-						        <div class="input-icon"><i class="fa fa-lock"></i></div>
-						      </div>
-						      </div>
-						      
-						      <div class="col-half">
-						      <h4>Full Name</h4>
-						      <div class="input-group input-group-icon">
-						        <input type="text" name="fullname" id="fullname" placeholder="Full Name" required/>
-						        <div class="input-icon"><i class="fa fa-user"></i></div>
-						      </div>
-						      </div>
-						      </div>
-						      
-						      <div class="row">
-						      <div class="col-half">
-						      <h4>Email Address</h4>
-						      <div class="input-group input-group-icon">
-						        <input type="email" name="email" id="email" placeholder="Email Adress" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}" title="abc12@gmail.com" required/>
-						        <div class="input-icon"><i class="fa fa-envelope"></i></div>
-						      </div>
-						      </div>
-						      
-						      <div class="col-half">
-						      <h4>NIC Number</h4>
-						      <div class="input-group input-group-icon">
-						        <input type="text" name="nic" id="nic" placeholder="NIC" pattern="[0-9]{9}+[v]" title="use-XXXXXXXXXv" required/>
-						        <div class="input-icon"><i class="fa fa-key"></i></div>
-						      </div>
-						      </div>
-						      </div>
-						      
-						      <div class="row">
-						      <div class="col-half">
-						      <h4>Phone Number</h4>
-						      <div class="input-group input-group-icon">
-						        <input type="number" name="phone" id="phone" placeholder="Phone Number" pattern="[0-9]{10}" title="use-XXXXXXXXX" required/>
-						        <div class="input-icon"><i class="fa fa-phone-square"></i></div>
-						      </div>
-						      </div>
-						      
-						      <div class="col-half">
-						      <h4>Permanent Address</h4>
-						      <div class="input-group input-group-icon">
-						        <input type="text" name="address" id="address" placeholder="Address" required/>
-						        <div class="input-icon"><i class="fa fa-home"></i></div>
-						      </div>
-						      </div>
-						      </div>
-						      
-						    
-						    <div class="row">
-						      <div class="col-half">
-						        <h4>Date of Birth</h4>
-						        <div class="input-group input-group-icon">
-						        	<input type="date" name="dob" id="dob" placeholder="DD/MM/YYYY" required/>
-						        	<div class="input-icon"><i class="fa fa-calendar"></i></div>
-						      </div>
-						      </div>
-						      
-						      <div class="col-half">
-						      <h4>Joined Date</h4>
-						      <div class="input-group input-group-icon">
-						        <input type="date" name="join" id="join" placeholder="DD/MM/YYYY" required/>
-						        <div class="input-icon"><i class="fa fa-calendar"></i></div>
-						      </div>
-						      </div>
-						      
-						    </div>
-						    
-						    <div class="row">
-						    	<div class="col-half">
-						        <h4>Gender</h4>
-						        <div class="input-group">
-						          <input type="radio" name="gender" value="Male" id="gender-male"/>
-						          <label for="gender-male">Male</label>
-						          <input type="radio" name="gender" value="Female" id="gender-female"/>
-						          <label for="gender-female">Female</label>
-						        </div>
-						      	</div>
-						      	<div class="col-half">
-						      	</div>
-						      </div>
-						      
-						    
-						    <div class="row">
-						    <div class="col-half">
-						    <h4>Department</h4>
-						        <div class="">
-						          	<select name="dept" id="dept" style="width: 425px;">
-										<option selected>Select Department</option>
-										<option value="User & Payroll Management">User & Payroll Management</option>
-										<option value="POS & Transaction Management">POS & Transaction Management</option>
-										<option value="Inventory & Assert Management">Inventory & Assert Management</option>
-										<option value="Customer Management">Customer Management</option>
-										<option value="Supplier Management">Supplier Management</option>
-										<option value="Promotions Management">Promotions Management</option>
-										<option value="Delivery Management">Delivery Management</option>
-										<option value="Employee">Other</option>
-									</select>
-						        </div>
-						    </div>
-						    
-						    
-						    
-						    <div class="col-half">
-						    <h4>Designation</h4>
-						        <div class="">
-						          	<select name="desc" id="desc" style="width: 425px;">
-										<option selected>Select Designation</option>
-										<option value="Manager">Manager</option>
-										<option value="Cashier">Cashier</option>
-										<option value="Trainer">Trainer</option>
-										<option value="Chef">Chef</option>
-										<option value="Clerk">Clerk</option>
-										<option value="Waiter">Waiter</option>
-								
-									</select>
-						        </div>
-						    </div>
-						    </div>
-						    
-						    <br><br>
-						    
-						    <div class="row">
-						      <div class="col-half">
-						      	<button type="reset" class="btn btn-success" style="margin-left: 275px; width: 150px; height: 50px;"> Cancel </button>
-						      </div>
-						      
-						      <div class="col-half">
-						      	<button type="submit" class="btn btn-danger" id="submitbtn" style="width: 150px; height: 50px;"> Submit </button>
-						      </div>
-						      </div>
-						      
-						      <br><br>
-						      
-						  </form>
-
-	            </div>
+                
+                <br>
+                <!-- Table Start -->
+                	
+                	<table>
+                    		<tr>
+                    			<th>Department ID</th>
+                    			<th>Department Name</th>
+                    			<th>Email Address</th>
+                    			<th>Department Number</th>
+                    			<th>Contact Number</th>
+                    			<th>Department Address</th>
+                    			<th>Department Type</th>
+                    			<th>Action</th>
+                    		</tr>
+                    		<%
+                    		ArrayList<Department> dpty = new ArrayList<>();
+                    		                    		                    		                               
+                    		                    		    IPayroll ipayroll = new PayrollImpl();
+                    		                    		                    		                                            		
+                    		                    	      // dpty = ipayroll.ListDepartment();
+                    		                    		                    		                               
+                    		                             for(Department dptlo : dpty){
+                    		%>
+                    		<tr>
+                    			<td><%=dptlo.getDptid()%></td>
+                    			<td><%=dptlo.getDptname()%></td>
+                    			<td><%=dptlo.getEmail()%></td>
+                    			<td><%=dptlo.getDptNo()%></td>
+                    			<td><%=dptlo.getContact()%></td>
+                    			<td><%=dptlo.getAddress()%></td>
+                    			<td><%=dptlo.getType()%></td>
+                    			
+                    			<td>
+                    				<form action="./GetDepartment" method="post">
+                    					
+                    					<button type="submit" class="btn btn-warning" style="height: 35px; width: 80px; margin: 5px;">Edit</button>
+                    				</form>
+                    				
+                    			</td>
+                    		</tr>
+                    		<%} %>
+                    	</table>
+                    	
+                	
+                <!-- End Table -->
+                
+                </div>
 	            <!-- End of Main Content -->
 
             <!-- Footer -->
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Your Website 2021</span>
+                        <span>Copyright &copy; Your Website 2022</span>
                     </div>
                 </div>
             </footer>
@@ -513,18 +434,6 @@
 
     <!-- Custom scripts for all pages-->
     <script src="js/sb-admin-2.min.js"></script>
-    
-    <script type="text/javascript">
-    	
-    	var i = '${value}';
-    	
-    	if(i == "Employee Added"){
-    		alert('Employee Successfuly Added');
-    	
-    	}else if(i == "Employee Exist"){
-    		alert('Sorry! This Employee ID Already exist');
-    	}
-    </script>
 
 </body>
 

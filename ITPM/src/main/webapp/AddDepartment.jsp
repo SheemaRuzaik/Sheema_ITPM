@@ -1,6 +1,6 @@
-<%@page import="com.service.PayrollImpl"%>
-<%@page import="com.service.IPayroll"%>
-<%@page import="com.model.Employee"%>
+<%@ page import="com.service.PayrollImpl"%>
+<%@ page import="com.service.IPayroll"%>
+<%@page import="com.model.Department"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
@@ -14,7 +14,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Manager User & Payroll</title>
+    <title>Add Departments</title>
 
     <!-- Custom fonts for this template-->
     <link href="css/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -28,27 +28,15 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 	
+    <!-- Form Style -->
+    <link rel="stylesheet" href="css/form.css">
     
     <!-- Custom styles for this template-->
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
-    
-    <!-- Calendar template -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.7/semantic.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.1.0/fullcalendar.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.7/semantic.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.1.0/fullcalendar.min.js"></script>
-	<script src="js/calendar.js"></script>
 
 </head>
 
 <body id="page-top">
-	
-	<%	
-		String un=(String)session.getAttribute("username");
-   		if(un!=null){
-   	%>
 
     <!-- Page Wrapper -->
     <div id="wrapper">
@@ -68,7 +56,7 @@
             <hr class="sidebar-divider my-0">
 
             <!-- Nav Item - Dashboard -->
-            <li class="nav-item active">
+            <li class="nav-item">
                 <a class="nav-link" href="User&PayrollDashboard.jsp">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span></a>
@@ -81,32 +69,30 @@
             <div class="sidebar-heading">
                 Interface
             </div>
-
-            <!-- Nav Item - Pages Collapse Menu -->
+            
+            <!-- Nav Employees Details -->
             <li class="nav-item">
+                <a class="nav-link" href=" Employees.jsp">
+                    <i class="fas fa-fw fa-home"></i>
+                    <span> Employees</span></a>
+            </li>
+            
+             <!-- Nav Item - Pages Collapse Menu -->
+            <li class="nav-item  active">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
                     aria-expanded="true" aria-controls="collapseTwo">
                     <i class="fas fa-fw fa-users"></i>
-                    <span>Employee</span>
+                    <span>Department</span>
                 </a>
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Custom Employees:</h6>
-                        <a class="collapse-item" href="AddEmployee.jsp">Add New Employee</a>
-                        <a class="collapse-item" href="ViewEmployee.jsp">View Employee</a>
-                        <a class="collapse-item" href="EmployeeList.jsp">Employee List</a>
+                        <h6 class="collapse-header">Custom Department:</h6>
+                        <a class="collapse-item  active" href="AddDepartment.jsp">Add New Department</a>
+                        <a class="collapse-item" href="ViewDepartment.jsp">View Department</a>
+                        <a class="collapse-item" href="DepartmentList.jsp">Department List</a>
                     </div>
                 </div>
             </li>
-            
-            <!-- Nav Departments Details -->
-            <li class="nav-item">
-                <a class="nav-link" href="Departments.jsp">
-                    <i class="fas fa-fw fa-home"></i>
-                    <span>Departments</span></a>
-            </li>
-            
-            
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
@@ -147,8 +133,8 @@
                     </div>
                 </div>
             </li>
-            
-            <!-- Nav Item - Three Collapse Menu -->
+
+			<!-- Nav Item - Three Collapse Menu -->
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsethree"
                     aria-expanded="true" aria-controls="collapsethree">
@@ -164,7 +150,7 @@
                     </div>
                 </div>
             </li>
-            
+			
             <!-- Divider -->
             <hr class="sidebar-divider">
             
@@ -217,8 +203,7 @@
                             </div>
                         </div>
                     </form>
-
-                    <!-- Topbar Navbar -->
+				<!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">
 
                         <!-- Nav Item - Search Dropdown (Visible Only XS) -->
@@ -280,19 +265,22 @@
                         </li>
 
                         <div class="topbar-divider d-none d-sm-block"></div>
-
-						<% 	Employee emp = new Employee();
+						
+						<% 	Department dpt = new Department();
+	                       
+                   		IPayroll ipayroll1 = new PayrollImpl();
+                   
+                   		dpt = ipayroll1.manager("User & Payroll Management");
                        
-                       		IPayroll ipayroll = new PayrollImpl();
-                       
-                       		emp = ipayroll.manager("User & Payroll Management");
+                       		
                       	%>
+                      	
                       	
                         <!-- Nav Item - User Information -->
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small"><%=emp.getFullname() %></span>
+                             
                                 <img class="img-profile rounded-circle"
                                     src="images/undraw_profile.svg">
                             </a>
@@ -323,142 +311,114 @@
 
                 </nav>
                 <!-- End of Topbar -->
-
+                  
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
-                	
-                	<!-- Page Heading -->
-                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
-                        <a href="ViewSalaryDetails.jsp" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-                                class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
-                    </div>
-                    
-                    <h2 style="text-align: center;">Welcome User & Payroll Manager</h2>
-                    
-                    <h2 style="text-align: center; color: black;">Mr. <%=emp.getFullname() %></h2>
-                    
-                    
-                    <br><br>
-                    
-                    <!-- Content Row -->
-                    <div class="row">
+                
+                <!-- Page Heading -->
+                <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                    <h1 class="h3 mb-0 text-gray-800">Add New Department</h1>
+                    <a href="DepartmentList.jsp"><button class="btn btn-success" style="margin-left: 500px; height: 50px; width: 180px;">Department List</button></a>
+                </div>
+                
+                    <form action="./DepartmentRegister" method="post" onsubmit="return enableButton()" class="">
+						    		      
+						      <br>
+						      <div class="row">
+						      <div class="col-half">
+						      <h4>Department ID</h4>
+						      <div class="input-group input-group-icon">
+						        <input type="text" name="dptid" id="Dptid" placeholder="Department ID" pattern="[E]+[0-9]{4}" title="EXXXX" required/>
+						        <div class="input-icon"><i class="fa fa-lock"></i></div>
+						      </div>
+						      </div>
+						      
+						      <div class="col-half">
+						      <h4>Department Name</h4>
+						      <div class="input-group input-group-icon">
+						        <input type="text" name="dptname" id="dptname" placeholder="Department Name" required/>
+						        <div class="input-icon"><i class="fa fa-user"></i></div>
+						      </div>
+						      </div>
+						      </div>
+						      
+						      <div class="row">
+						      <div class="col-half">
+						      <h4>Department Email Address</h4>
+						      <div class="input-group input-group-icon">
+						        <input type="email" name="email" id="email" placeholder="Email Adress" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}" title="abc12@gmail.com" required/>
+						        <div class="input-icon"><i class="fa fa-envelope"></i></div>
+						      </div>
+						      </div>
+						      
+						      <div class="col-half">
+						      <h4>Department Number</h4>
+						      <div class="input-group input-group-icon">
+						        <input type="text" name="dptNo" id="nic" placeholder="dptNo" pattern="[0-9]{9}+[v]" title="use-XXXXXXXXXv" required/>
+						        <div class="input-icon"><i class="fa fa-key"></i></div>
+						      </div>
+						      </div>
+						      </div>
+						      
+						      <div class="row">
+						    
+						      
+						      <div class="col-half">
+						      <h4>Department Address</h4>
+						      <div class="input-group input-group-icon">
+						        <input type="text" name="address" id="address" placeholder="Address" required/>
+						        <div class="input-icon"><i class="fa fa-home"></i></div>
+						      </div>
+						      </div>
+						      </div>
+						      
+						    
+						    <div class="row">
+						      <div class="col-half">
+						        <h4>Department Start Date</h4>
+						        <div class="input-group input-group-icon">
+						        	<input type="date" name="startdate" id="startdate" placeholder="DD/MM/YYYY" required/>
+						        	<div class="input-icon"><i class="fa fa-calendar"></i></div>
+						      </div>
+						      </div>
+						      
+						     
+						      
+						    </div>
+						    
+						    <div class="row">
+						    	<div class="col-half">
+						        <h4>Department Type</h4>
+						        <div class="input-group">
+						          <input type="radio" name="On-source" value="In source" id="In-source"/>
+						          <label for="In-source">In source</label>
+						          <input type="radio" name="Out-source" value="Out source" id="Out-source"/>
+						          <label for="Out-source">Out source</label>
+						        </div>
+						      	</div>
+						      	<div class="col-half">
+						      	</div>
+						      </div>
+						      
+						    
+						   
+						    
+						    <br><br>
+						    
+						    <div class="row">
+						      <div class="col-half">
+						      	<button type="reset" class="btn btn-success" style="margin-left: 275px; width: 150px; height: 50px;"> Cancel </button>
+						      </div>
+						      
+						      <div class="col-half">
+						      	<button type="submit" class="btn btn-danger" id="submitbtn" style="width: 150px; height: 50px;"> Submit </button>
+						      </div>
+						      </div>
+						      
+						      <br><br>
+						      
+						  </form>
 
-                        <!-- Earnings (Monthly) Card Example -->
-                        <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-primary shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                                Total Employee</div>
-                                                
-                                                <%
-                                            		IPayroll pay1 = new PayrollImpl();
-                                            		int total1 = pay1.totalEmployee();
-                                            	%>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800"><%=total1 %></div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <i class="fas fa-users fa-2x text-gray-300"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Earnings (Monthly) Card Example -->
-                        <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-success shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                                Departments</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">6</div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <i class="fas fa-home fa-2x text-gray-300"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-
-                        <!-- Earnings (Monthly) Card Example -->
-                        <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-info shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Attendance
-                                            </div>
-                                            <div class="row no-gutters align-items-center">
-                                                <div class="col-auto">
-                                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">65%</div>
-                                                </div>
-                                                <div class="col">
-                                                    <div class="progress progress-sm mr-2">
-                                                        <div class="progress-bar bg-info" role="progressbar"
-                                                            style="width: 65%" aria-valuenow="65" aria-valuemin="0"
-                                                            aria-valuemax="100"></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Pending Requests Card Example -->
-                        <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-warning shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
-                                                Leave Requests</div>
-                                                
-                                                <%
-                                            		IPayroll pay = new PayrollImpl();
-                                            		int total = pay.totalLeave();
-                                            	%>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800"><%=total %></div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <i class="fas fa-comments fa-2x text-gray-300"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-					<br>
-						<hr style="background-color: solid black; height: 5px;">
-					<br>
-					
-                    <div class="row">
-                    	<h1 style="margin-left: 500px;">Monthly Schedule</h1>
-                    	<div class="ui container">
-						<br/>
-							<div class="ui container">
-							  <div class="ui grid">
-							    <div class="ui sixteen column">
-							      <div id="calendar"></div>
-							    </div>
-							  </div>
-							</div>
-							
-						</div>
-                    </div>
-                    </div>
-                	
 	            </div>
 	            <!-- End of Main Content -->
 
@@ -466,7 +426,7 @@
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Your Website 2021</span>
+                        <span>Copyright &copy; Your Website 2022</span>
                     </div>
                 </div>
             </footer>
@@ -509,11 +469,17 @@
     <!-- Custom scripts for all pages-->
     <script src="js/sb-admin-2.min.js"></script>
     
-    <%}else if(un==null){
-
-    	response.sendRedirect("Login.jsp");
+    <script type="text/javascript">
+    	
+    	var i = '${value}';
+    	
+    	if(i == "Department Added"){
+    		alert('Department Successfuly Added');
+    	
+    	}else if(i == "Department Exist"){
+    		alert('Sorry! This Department ID Already exist');
     	}
-    %>
+    </script>
 
 </body>
 

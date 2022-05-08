@@ -9,21 +9,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.model.Employee;
-import com.service.PayrollImpl;
+import com.model.Department;
 import com.service.IPayroll;
+import com.service.PayrollImpl;
 
 /**
- * Servlet implementation class EmployeeList
+ * Servlet implementation class Get Department
  */
-@WebServlet("/EmployeeList")
-public class EmployeeList extends HttpServlet {
+@WebServlet("/GetDepartment")
+public class GetDepartment extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public EmployeeList() {
+    public GetDepartment() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -40,18 +40,25 @@ public class EmployeeList extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		//doGet(request, response);
 		
-		IPayroll iemployee = new PayrollImpl();
-		Employee employee = new Employee();
+		String dptid = request.getParameter("dptid");
+		IPayroll ipayroll = new PayrollImpl();
 		
-		employee = iemployee.getEmployee(request.getParameter("empid"));
 		
-		request.setAttribute("employee", employee);
-		
-		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/EmployeeList.jsp");
-		dispatcher.forward(request, response);
+		if(ipayroll.checkDpt(dptid) == false) {
+			
+			request.setAttribute("value", "Department No");
+			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/ViewDepartment.jsp");
+			dispatcher.forward(request, response);
+		}else {
+			Department department = new Department();
+			department = ipayroll.getDepartment(dptid);
+			
+			request.setAttribute("department", department);
+			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/ViewDepartment.jsp");
+			dispatcher.forward(request, response);
+			
+		}
 	}
 
 }

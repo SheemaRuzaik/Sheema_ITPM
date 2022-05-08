@@ -6,17 +6,17 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/ASUS/Desktop/ITPM/resource/itextpdf-5.1.0.jar">
+	<classpathentry kind="lib" path="C:/Users/Hp/Desktop/ITPM/ITPM/resource/itextpdf-5.1.0.jar">
 		<attributes>
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/ASUS/Desktop/ITPM/resource/mssql-jdbc-8.2.2.jre8.jar">
+	<classpathentry kind="lib" path="C:/Users/Hp/Desktop/ITPM/ITPM/resource/mssql-jdbc-8.2.2.jre8.jar">
 		<attributes>
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/ASUS/Desktop/ITPM/resource/spdf.jar">
+	<classpathentry kind="lib" path="C:/Users/Hp/Desktop/ITPM/ITPM/resource/spdf.jar">
 		<attributes>
 			<attribute name="module" value="true"/>
 		</attributes>

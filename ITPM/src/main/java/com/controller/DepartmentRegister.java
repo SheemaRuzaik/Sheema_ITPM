@@ -9,20 +9,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.model.Employee;
+import com.model.Department;
 import com.service.PayrollImpl;
 
+
 /**
- * Servlet implementation class EmployeeRegister
+ * Servlet implementation class Department Register
  */
-@WebServlet("/EmployeeRegister")
-public class EmployeeRegister extends HttpServlet {
+@WebServlet("/DepartmentRegister")
+public class DepartmentRegister extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public EmployeeRegister() {
+    public DepartmentRegister() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -40,32 +41,29 @@ public class EmployeeRegister extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		Employee employee=new Employee();
+		Department department=new Department();
 		PayrollImpl ipayroll=new PayrollImpl();
 		
-		employee.setEmpid(request.getParameter("empid"));
-		employee.setFullname(request.getParameter("fullname"));
-		employee.setEmail(request.getParameter("email"));
-		employee.setNic(request.getParameter("nic"));
-		employee.setContact(request.getParameter("phone"));
-		employee.setAddress(request.getParameter("address"));
-		employee.setDob(request.getParameter("dob"));;
-		employee.setGender(request.getParameter("gender"));
-		employee.setJoin_date(request.getParameter("join"));
-		employee.setDepartment(request.getParameter("dept"));
-		employee.setDesignation(request.getParameter("desc"));
-		
-		if(ipayroll.checkEmpID(employee.getEmpid()) == false) {
+		department.setDptid(request.getParameter("dptid"));
+		department.setDptname(request.getParameter("dptname"));
+		department.setEmail(request.getParameter("email"));
+		department.setDptNo(request.getParameter("dptno"));
+		department.setContact(request.getParameter("phone"));
+		department.setAddress(request.getParameter("address"));
+		department.setStartdate(request.getParameter("startdate"));;
+		department.setType(request.getParameter("type"));
+	
+		if(ipayroll.checkDptid(department.getDptid()) == false) {
 			
-			ipayroll.registeremployee(employee);
+			ipayroll.registerdepartment(department);
 			
-			request.setAttribute("value", "Employee Added");
-			RequestDispatcher dispatcher=getServletContext().getRequestDispatcher("/AddEmployee.jsp");
+			request.setAttribute("value", "Department Added");
+			RequestDispatcher dispatcher=getServletContext().getRequestDispatcher("/AddDepartment.jsp");
 			dispatcher.forward(request, response);
 		}
 		else {
-			request.setAttribute("value", "Employee Exist");
-			RequestDispatcher dispatcher=getServletContext().getRequestDispatcher("/AddEmployee.jsp");
+			request.setAttribute("value", "Department Exist");
+			RequestDispatcher dispatcher=getServletContext().getRequestDispatcher("/AddDepartment.jsp");
 			dispatcher.forward(request, response);
 		}
 	}

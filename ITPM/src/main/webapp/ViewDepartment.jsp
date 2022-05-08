@@ -1,6 +1,6 @@
 <%@page import="com.service.PayrollImpl"%>
 <%@page import="com.service.IPayroll"%>
-<%@page import="com.model.Employee"%>
+<%@page import="com.model.Department"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
@@ -14,7 +14,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>View Employees</title>
+    <title>View Department</title>
 
     <!-- Custom fonts for this template-->
     <link href="css/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -71,27 +71,28 @@
             </div>
 
             <!-- Nav Item - Pages Collapse Menu -->
+             <!-- Nav Employees Details -->
+            <li class="nav-item">
+                <a class="nav-link" href=" Employees.jsp">
+                    <i class="fas fa-fw fa-home"></i>
+                    <span> Employees</span></a>
+            </li>
+            
+             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item  active">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
                     aria-expanded="true" aria-controls="collapseTwo">
                     <i class="fas fa-fw fa-users"></i>
-                    <span>Employee</span>
+                    <span>Department</span>
                 </a>
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Custom Employees:</h6>
-                        <a class="collapse-item" href="AddEmployee.jsp">Add New Employee</a>
-                        <a class="collapse-item active" href="ViewEmployee.jsp">View Employee</a>
-                        <a class="collapse-item" href="EmployeeList.jsp">Employee List</a>
+                        <h6 class="collapse-header">Custom Department:</h6>
+                        <a class="collapse-item  active" href="AddDepartment.jsp">Add New Department</a>
+                        <a class="collapse-item" href="ViewDepartment.jsp">View Department</a>
+                        <a class="collapse-item" href="DepartmentList.jsp">Department List</a>
                     </div>
                 </div>
-            </li>
-            
-            <!-- Nav Department Details -->
-            <li class="nav-item">
-                <a class="nav-link" href="Departments.jsp">
-                    <i class="fas fa-fw fa-home"></i>
-                    <span>Departments</span></a>
             </li>
             
             <!-- Nav Item - Pages Collapse Menu -->
@@ -268,21 +269,15 @@
                         </li>
 
                         <div class="topbar-divider d-none d-sm-block"></div>
-                        <% 	Employee emp1 = new Employee();
+                        <% 	Department dpt1 = new Department();
                        
                        		IPayroll ipayroll1 = new PayrollImpl();
                        
-                       		emp1 = ipayroll1.manager("User & Payroll Management");
+                       		dpt1 = ipayroll1.manager("User & Payroll Management");
                       	%>
 
                         <!-- Nav Item - User Information -->
-                        <li class="nav-item dropdown no-arrow">
-                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small"><%=emp1.getFullname()%></span>
-                                <img class="img-profile rounded-circle"
-                                    src="images/undraw_profile.svg">
-                            </a>
+                        
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="userDropdown">
@@ -316,20 +311,20 @@
                 
                 <!-- Page Heading -->
                 <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                    <h1 class="h3 mb-0 text-gray-800">View Employee Details</h1>
-                    <a href="EmployeeList.jsp"><button class="btn btn-success" style="margin-left: 500px; height: 50px; width: 180px;">Employee List</button></a>
+                    <h1 class="h3 mb-0 text-gray-800">View Department Details</h1>
+                    <a href="DepartmentList.jsp"><button class="btn btn-success" style="margin-left: 500px; height: 50px; width: 180px;">Department List</button></a>
                 </div>
                 
                 
-                	<%Employee emp = (Employee) request.getAttribute("employee"); %>
+                	<%Department dpt = (Department) request.getAttribute("department"); %>
                 	
                 <!-- Search Employee -->
-                <form action="./GetEmployee" method="post">
+                <form action="./GetDepartment" method="post">
 							
 					<div class="row">
 					<div class="col-half">
 					<div class="input-group input-group-icon">
-						<input type="text" name="empid" id="empid" placeholder="Employee ID" pattern="[E]+[0-9]{4}" title="EXXXX" required>
+						<input type="text" name="dptid" id="dptid" placeholder="Department ID" pattern="[E]+[0-9]{4}" title="EXXXX" required>
 						<div class="input-icon"><i class="fa fa-lock"></i></div>
 					</div>
 					</div>
@@ -341,126 +336,92 @@
 				</form>
 				<br>
 				<br>
-				<% if(emp != null  && emp.getNic() != null) { %>
+				<% if(dpt != null  && dpt.getDptNo() != null) { %>
 				
 				<!-- Page Heading -->
                 <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                    <h1 class="h3 mb-0 text-gray-800">Details of <%=emp.getEmpid() %></h1>
+                    <h1 class="h3 mb-0 text-gray-800">Details of <%=dpt.getDptid() %></h1>
                 </div>
                 <br>
                 	
-				<form action="./UpdateEmployee" method="post">
+				<form action="./UpdateDepartment" method="post">
 								
 					<div class="row">
 					<div class="col-half">
-						<h4>Full Name</h4>
+						<h4>Department Name</h4>
 						<div class="input-group ">
-							<input type="text" name="fname" id="fname" value="<%=emp.getFullname()%>" title="can change">
+							<input type="text" name="dname" id="dname" value="<%=dpt.getDptname()%>" title="can change">
 						</div>
 					</div>
 								
 					<div class="col-half">
 						<h4>Email Address</h4>
 						<div class="input-group ">
-							<input type="email" name="email" id="email" value="<%=emp.getEmail()%>" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}" title="can change">
+							<input type="email" name="email" id="email" value="<%=dpt.getEmail()%>" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}" title="can change">
 						</div>
 					</div>
 					</div>
 								
 					<div class="row">
 					<div class="col-half">
-						<h4>Nic Number</h4>
+						<h4>Department Number</h4>
 						<div class="input-group ">
-							<input type="text" name="nic" id="nic" value="<%=emp.getNic()%>" readonly title="can't change">
+							<input type="text" name="dptNo" id="dptNo" value="<%=dpt.getDptNo()%>" readonly title="can't change">
 						</div>
 					</div>
 								
 					<div class="col-half">
-						<h4>Phone Number</h4>
+						<h4>Department Phone Number</h4>
 						<div class="input-group ">
-							<input type="tel" name="phone" id="phone" value="<%=emp.getContact()%>" pattern="[0-9]{10}" title="can change">
+							<input type="tel" name="phone" id="phone" value="<%=dpt.getContact()%>" pattern="[0-9]{10}" title="can change">
 						</div>
 					</div>
-					</div>
-								
-					<div class="row">
-					<div class="col-half">
-						<h4>Permanent Address</h4>
-						<div class="input-group ">
-							<input type="text" name="address" id="address" value="<%=emp.getAddress()%>" title="can change">
-						</div>
-					</div>
-								
-					<div class="col-half">
-						<h4>Date Of Birth</h4>
-						<div class="input-group ">
-							<input type="date" name="dob" id="dob" value="<%=emp.getDob()%>" readonly title="can't change">
-						</div>
-						</div>
 					</div>
 								
 					<div class="row">
 					<div class="col-half">
-						<h4>Joined Date</h4>
+						<h4>Department Address</h4>
 						<div class="input-group ">
-							<input type="date" name="date" id="date" value="<%=emp.getJoin_date() %>" readonly title="can't change">
+							<input type="text" name="address" id="address" value="<%=dpt.getAddress()%>" title="can change">
+						</div>
+					</div>
+								
+					<div class="col-half">
+						<h4>Start date</h4>
+						<div class="input-group ">
+							<input type="date" name="strartdate" id="strartdate" value="<%=dpt.getStartdate()%>" readonly title="can't change">
 						</div>
 						</div>
+					</div>
+								
+					<div class="row">
+					
 					
 					<div class="col-half">
-						<h4>Gender</h4>
+						<h4>Type</h4>
 						<div class="input-group ">
-							<input type="text" name="gender" id="gender" value="<%=emp.getGender()%>" readonly title="can't change">
+							<input type="text" name="type" id="type" value="<%=dpt.getType()%>" readonly title="can't change">
 						</div>
 					</div>
 					</div>
 								
 					<div class="row">
-					<div class="col-half">
-						<h4>Department</h4>
-						<div class="">
-							<select name="dept" id="dept" style="width: 425px;" title="can change">
-								<option selected><%=emp.getDepartment() %></option>
-								<option value="User & Payroll Management">User & Payroll Management</option>
-								<option value="POS & Transaction Management">POS & Transaction Management</option>
-								<option value="Inventory & Assert Management">Inventory & Assert Management</option>
-								<option value="Customer Management">Customer Management</option>
-								<option value="Supplier Management">Supplier Management</option>
-								<option value="Promotions Management">Promotions Management</option>
-								<option value="Delivery Management">Delivery Management</option>
-								<option value="Employee">Other</option>
-							</select>
-						</div>
-					</div>
+					
 								
-					<div class="col-half">
-						<h4>Designation</h4>
-						<div class=" ">
-							<select name="desc" id="desc" style="width: 425px;" title="can change">
-								<option selected><%=emp.getDesignation() %></option>
-								<option value="Manager">Manager</option>
-								<option value="Cashier">Cashier</option>
-								<option value="Trainer">Trainer</option>
-								<option value="Chef">Chef</option>
-								<option value="Clerk">Clerk</option>
-								<option value="Waiter">Waiter</option>
-								
-							</select>
-						</div>
-					</div>
+					
 					</div>
 					
 					<br><br>		
-					<input type="hidden" name="emp_id" value="<%=emp.getEmpid() %>">
+					<input type="hidden" name="dpt_id" value="<%=dpt.getDptid() %>">
 								
 						<button type="submit" class="btn btn-success" style="height: 50px; width: 180px;">Save Changes</button>
 										
 				</form>
 				<br>
 							
-				<form action="./DeleteEmployee" method="post">
+				<form action="./DeleteDepartment" method="post">
 								
-					<input type="hidden" name="empid" value="<%=emp.getEmpid() %>">
+					<input type="hidden" name="dptid" value="<%=dpt.getDptid() %>">
 								
 						<button type="submit" class="btn btn-danger" style="height: 50px; width: 180px;" id="deletebtn">Deactivate Account</button>
 						
@@ -526,8 +487,8 @@
     
     	var i = '${value}';
     	
-    	if(i == "Employee No"){
-    		alert('Sorry! Employee Id is not exist');
+    	if(i == "Department No"){
+    		alert('Sorry! Department Id is not exist');
     	}
     </script>
 

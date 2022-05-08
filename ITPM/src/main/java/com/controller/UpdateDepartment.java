@@ -9,21 +9,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.model.Employee;
-import com.service.PayrollImpl;
+import com.model.Department;
 import com.service.IPayroll;
+import com.service.PayrollImpl;
 
 /**
- * Servlet implementation class GetEmployee
+ * Servlet implementation class Update Department
  */
-@WebServlet("/GetEmployee")
-public class GetEmployee extends HttpServlet {
+@WebServlet("/UpdateDepartment")
+public class UpdateDepartment extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public GetEmployee() {
+    public UpdateDepartment() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -41,24 +41,25 @@ public class GetEmployee extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		String empid = request.getParameter("empid");
-		IPayroll ipayroll = new PayrollImpl();
+		
+		Department department=new Department();
+		IPayroll ipayroll=new PayrollImpl();
+		
+		department.setDptid(request.getParameter("dpt_id"));
+		department.setDptname(request.getParameter("dname"));
+		department.setEmail(request.getParameter("email"));
+		department.setDptNo(request.getParameter("dptno"));
+		department.setContact(request.getParameter("phone"));
+		department.setAddress(request.getParameter("address"));
+		department.setStartdate(request.getParameter("startdate"));
+		department.setType(request.getParameter("type"));
 		
 		
-		if(ipayroll.checkEmp(empid) == false) {
-			
-			request.setAttribute("value", "Employee No");
-			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/ViewEmployee.jsp");
-			dispatcher.forward(request, response);
-		}else {
-			Employee employee = new Employee();
-			employee = ipayroll.getEmployee(empid);
-			
-			request.setAttribute("employee", employee);
-			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/ViewEmployee.jsp");
-			dispatcher.forward(request, response);
-			
-		}
+		ipayroll.updateDepartment(department);
+		
+		request.setAttribute("value", 1);
+		RequestDispatcher dispatcher=getServletContext().getRequestDispatcher("/DepartmentList.jsp");
+		dispatcher.forward(request, response);
 	}
 
 }

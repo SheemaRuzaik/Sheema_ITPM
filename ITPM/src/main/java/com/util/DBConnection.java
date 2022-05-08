@@ -16,7 +16,7 @@ public class DBConnection {
 			    
 			    Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
 				String url="jdbc:sqlserver://localhost:1433;databaseName=Restaurant";
-			    connection=DriverManager.getConnection(url,"sheema","sheema123");
+			    connection=DriverManager.getConnection(url,"upeka123","upeka123");
 			 
 		} 
 			

@@ -9,20 +9,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.service.PayrollImpl;
+
 import com.service.IPayroll;
+import com.service.PayrollImpl;
 
 /**
  * Servlet implementation class DeleteEmployee
  */
-@WebServlet("/DeleteEmployee")
-public class DeleteEmployee extends HttpServlet {
+@WebServlet("/DeleteDepartment")
+public class DeleteDepartment extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public DeleteEmployee() {
+    public DeleteDepartment() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -40,13 +41,13 @@ public class DeleteEmployee extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		String empid = request.getParameter("empid");
+		String dptid = request.getParameter("dptid");
 		IPayroll ipayroll = new PayrollImpl();
-		ipayroll.DeleteEmployee(empid);
+		ipayroll.DeleteDepartment(dptid);
 		
 		request.setAttribute("Value", 1);
 		
-		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/EmployeeList.jsp");
+		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/DepartmentList.jsp");
 		dispatcher.forward(request, response);
 	}
 
